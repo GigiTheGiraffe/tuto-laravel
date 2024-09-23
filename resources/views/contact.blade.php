@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact us</title>
-</head>
-<body>
-
-    <header>
-        <h1>Bienvenue sur ma page de contact</h1>
-    </header>
-
-    <main>
-        <p>Ceci est un exemple de page HTML minimaliste.</p>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 - Tous droits réservés</p>
-    </footer>
-
-</body>
-</html>
+<x-layout>
+<x-slot:heading>
+        Contact me
+    </x-slot:heading>
+    <x-slot:slot>
+    <h1>Bienvenue sur ma page de contact</h1>
+    <p>Ceci est un exemple de page HTML minimaliste.</p>
+    </x-slot:slot>
+</x-layout>
