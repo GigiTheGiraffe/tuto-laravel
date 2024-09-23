@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>
-        Welcome on our homepage
+        Welcome to our homepage
     </x-slot:heading>
     <x-slot:slot>
     <h1>Bienvenue sur ma page principale</h1>
