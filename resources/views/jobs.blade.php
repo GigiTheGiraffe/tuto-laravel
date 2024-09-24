@@ -4,7 +4,11 @@
     </x-slot:heading>
     <ul>
         @foreach ($jobs as $job)
-            <li>The position <strong> {{$job['title']}} </strong> pays {{$job['salary']}} per month</li>
+            <li>
+                <a class="text-blue hover:underline" href="/jobs/{{$job['title']}}">
+                The position <strong> {{$job['title']}} </strong> pays {{$job['salary']}} per month
+                </a>
+            </li>
         @endforeach
     </ul>
 </x-layout>

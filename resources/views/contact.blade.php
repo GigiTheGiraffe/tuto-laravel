@@ -1,5 +1,5 @@
 <x-layout>
-<x-slot:heading>
+    <x-slot:heading>
         Contact me
     </x-slot:heading>
     <x-slot:slot>
