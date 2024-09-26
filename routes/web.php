@@ -5,16 +5,18 @@ use Illuminate\Support\Arr;
 use App\Models\Job;
 
 Route::get('/', function () {
-    dd($jobs = Job::all());
     return view('home');
 });
 
 Route::get('jobs', function () {
-    return view('jobs', data: ['jobs' => Job::getAll()]);
+    return view('jobs', data: ['jobs' => Job::all()]);
 });
 
-Route::get('jobs/{title}', function ($title) {
-        $job = Job::find($title);
+Route::get('jobs/{id}', function ($id) {
+        $job = Job::find($id);
+        if(!$job) {
+            abort(404);
+        }
     return view('job', data: ['job' => $job]);
 });
 
