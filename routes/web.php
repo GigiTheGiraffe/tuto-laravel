@@ -2,82 +2,31 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
-use App\Models\Job;
+use App\Http\Controllers\JobController;
 
 //page principale
-Route::get('/', function () {
-    return view('home');
-});
-
-//Index des jobs
-Route::get('/jobs', function () {
-    $jobs = Job::with('employer')->latest()->simplePaginate(5);
-    return view('jobs.index', ['jobs' => $jobs]);
-});
-
-//Creer un job
-Route::get('/jobs/create', function () {
-    return view('jobs.create');
-});
-
-//Voir un job
-Route::get('/jobs/{id}', function ($id) {
-    $job = Job::find($id);
-    if (!$job) {
-        abort(404);
-    }
-    return view('jobs.show', data: ['job' => $job]);
-});
-
+Route::view('/', 'home');
 //Nous contacter
-Route::get('/contact', function () {
-    return view('contact');
-});
+Route::view('/contact', 'contact');
 
+/* Version a la main
+Route::controller(JobController::class)->group(function() {
+//Index des jobs
+Route::get('/jobs', 'index');
+//Creer un job
+Route::get('/jobs/create', 'create');
+//Voir un job
+Route::get('/jobs/{job}', 'show');
 //Form pour créer un job
-Route::post('/jobs', function () {
-    //Validation
-    request()->validate([
-        'title' => ['required', 'min:3'],
-        'salary' => ['required']
-    ]);
-
-    //Créer le job
-    Job::create([
-        'title' => request('title'),
-        'salary' => request('salary'),
-        'employer_id' => 5
-    ]);
-    return redirect('/jobs');
-});
-
+Route::post('/jobs', 'create');
 //Update un job
-Route::patch('/jobs/{id}', function ($id) {
-    request()->validate([
-        'title' => ['required', 'min:3'],
-        'salary' => ['required']
-    ]);
-
-    $job = Job::findOrFail($id);
-    $job->update([
-        'title' => request('title'),
-        'salary' => request('salary')
-    ]);
-
-    return redirect('jobs/' . $job->id);
-});
-
+Route::patch('/jobs/{job}', 'update');
 //Delete un job
-Route::delete('/jobs/{id}', function ($id) {
-    $job = Job::findOrFail($id);
-    $job->delete();
-    return redirect('/jobs');
+Route::delete('/jobs/{job}', 'delete');
+//Voir le form edit
+Route::get('/jobs/{job}/edit', 'edit');
 });
+*/
 
-Route::get('/jobs/{id}/edit', function ($id) {
-    $job = Job::find($id);
-    if (!$job) {
-        abort(404);
-    }
-    return view('jobs.edit', data: ['job' => $job]);
-});
+//Toutes les routes supportées par Laravel
+Route::resource('jobs', JobController::class);
