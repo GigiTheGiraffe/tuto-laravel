@@ -1,10 +1,18 @@
 <?php
 
+use App\Mail\JobPosted;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Arr;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Models\Job;
+
+//Page pour voir le dummy mail
+Route::get('/test', function() {
+    return new JobPosted(Job::first());
+});
 
 //page principale
 Route::view('/', 'home');
