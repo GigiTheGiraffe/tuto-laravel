@@ -1,6 +1,6 @@
 <x-layout>
 <x-slot:heading>
-        About me
+        All of our wonderful jobs
     </x-slot:heading>
     <div>
         @foreach ($jobs as $job)

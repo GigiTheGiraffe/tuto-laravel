@@ -11,29 +11,33 @@ Route::view('/', 'home');
 //Nous contacter
 Route::view('/contact', 'contact');
 
-/* Version a la main
 Route::controller(JobController::class)->group(function() {
 //Index des jobs
 Route::get('/jobs', 'index');
 //Creer un job
-Route::get('/jobs/create', 'create');
+Route::get('/jobs/create', 'create')->middleware('auth');
 //Voir un job
 Route::get('/jobs/{job}', 'show');
 //Form pour créer un job
 Route::post('/jobs', 'create');
 //Update un job
-Route::patch('/jobs/{job}', 'update');
-//Delete un job
-Route::delete('/jobs/{job}', 'delete');
-//Voir le form edit
-Route::get('/jobs/{job}/edit', 'edit');
-});
-*/
+Route::patch('/jobs/{job}', 'update')
+->middleware('auth')
+->can('edit-job', 'job');
 
+//Delete un job
+Route::delete('/jobs/{job}', 'delete')
+->middleware('auth')
+->can('edit-job', 'job');
+
+//Voir le form edit
+Route::get('/jobs/{job}/edit', 'edit')
+->middleware('auth')
+->can('edit', 'job');
+});
 //Toutes les routes supportées par Laravel
-Route::resource('jobs', JobController::class);
 Route::get('/register',[RegisteredUserController::class, 'create']);
 Route::post('/register',[RegisteredUserController::class, 'store']);
-Route::get('/login',[SessionController::class, 'create']);
+Route::get('/login',[SessionController::class, 'create'])->name('login');
 Route::post('/login',[SessionController::class, 'store']);
 Route::post('/logout',[SessionController::class, 'destroy']);
