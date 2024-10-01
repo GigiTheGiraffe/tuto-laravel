@@ -7,13 +7,18 @@ use Illuminate\Support\Arr;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Jobs\TranslateJob;
 use App\Models\Job;
 
-//Page pour voir le dummy mail
+/*/Page pour voir le dummy mail
 Route::get('/test', function() {
     return new JobPosted(Job::first());
+});*/
+//Page pour voir la queue
+Route::get('/test', function() {
+    $job = Job::first();
+    TranslateJob::dispatch($job);
 });
-
 //page principale
 Route::view('/', 'home');
 //Nous contacter
